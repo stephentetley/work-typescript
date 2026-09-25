@@ -1,2 +1,3 @@
-# site-model
-A TypeScript doodle...
+# work-typescript
+
+TypeScript doodles for my work
