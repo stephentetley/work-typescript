@@ -1,7 +1,7 @@
 
 
+export class InvalidOSGB36Error extends Error {}
 type Scalings = Record<string, {easting: number, northing: number}>;
-
 
 let enMajor: Scalings = {
   'S' : {easting: 0, northing: 0},
@@ -39,8 +39,15 @@ let enMinor: Scalings = {
   'Z' : {easting: 400_000, northing: 0}
 };
 
+let osgb36Regex = /^[STNOH][A-Z][0-9]{10,}$/;
 
 export function toEastingNorthing(osgb: string): [number, number] {
+  if (osgb.length != 12) {
+    throw new InvalidOSGB36Error('Bad input')
+  } 
+  if (!osgb36Regex.test(osgb)) { 
+    throw new InvalidOSGB36Error('Bad input')
+  }
   let majorChar = osgb.charAt(0).toUpperCase();
   let minorChar = osgb.charAt(1).toUpperCase();
   let major = enMajor[majorChar];
