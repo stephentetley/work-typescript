@@ -39,7 +39,8 @@ let enMinor: Scalings = {
   'Z' : {easting: 400_000, northing: 0}
 };
 
-function toEastingNorthing(osgb: string): [number, number] {
+
+export function toEastingNorthing(osgb: string): [number, number] {
   let majorChar = osgb.charAt(0).toUpperCase();
   let minorChar = osgb.charAt(1).toUpperCase();
   let major = enMajor[majorChar];
@@ -49,4 +50,3 @@ function toEastingNorthing(osgb: string): [number, number] {
   return [major.easting + minor.easting + east1, major.northing + minor.northing + north1]
 };
 
-console.log(toEastingNorthing("SE3456712345"))
