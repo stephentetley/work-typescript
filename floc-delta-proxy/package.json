@@ -1,0 +1,20 @@
+{
+  "name": "floc-delta-proxy",
+  "version": "1.0.0",
+  "description": "floc_delta proxy",
+  "license": "Apache-2.0",
+  "author": "stephentetley",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.3",
+    "typescript": "^7.0.2"
+  }
+}
