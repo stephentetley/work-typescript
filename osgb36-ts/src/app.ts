@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as https from 'https'
 import express, { type Express, type Request, type Response } from 'express';
 import { InvalidOSGB36Error, toEastingNorthing } from './osgb36.ts';
 import { InvalidEastingNorthingError, toOSGB36 } from './eastnorth.ts';
@@ -25,9 +27,9 @@ app.get('/eastnorth/:gridref', (req: Request, res: Response) => {
 
 
 app.get('/osgb36/:east/:north', (req: Request, res: Response) => {
-  let easting = Number(req.params.east);
-  let northing = Number(req.params.north);
   try {
+    let easting = Number(req.params.east);
+    let northing = Number(req.params.north);
     let ans = toOSGB36(easting, northing);
     res.json(ans);
   } catch (e) {
@@ -39,5 +41,13 @@ app.get('/osgb36/:east/:north', (req: Request, res: Response) => {
   }
 });
 
+const options: https.ServerOptions = {
+  key: fs.readFileSync('../certs/two/server.key'),
+  cert: fs.readFileSync('../certs/two/server.cert')
+};
 
-app.listen(3000);
+https.createServer(options, app).listen(3000, () => {
+  console.log('HTTPS server running on port 3000');
+});
+
+
